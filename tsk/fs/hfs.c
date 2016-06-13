@@ -1084,7 +1084,12 @@ hfs_cat_traverse(HFS_INFO * hfs,
 
             // move right to the next node if we got this far
             if (is_done == 0) {
-                cur_node = tsk_getu32(fs->endian, node_desc->flink);
+                uint32_t next_node = tsk_getu32(fs->endian, node_desc->flink);
+                if (next_node == cur_node)
+                 is_done = 1;
+                else
+                 cur_node = next_node;
+                 
                 if (cur_node == 0) {
                     is_done = 1;
                 }
