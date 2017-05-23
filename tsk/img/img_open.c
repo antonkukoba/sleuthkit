@@ -258,6 +258,9 @@ tsk_img_open(int num_img,
     }
 
     /* we have a good img_info, set up the cache lock */
+    if (img_info == NULL)
+        return img_info;
+    
     tsk_init_lock(&(img_info->cache_lock));
     return img_info;
 }
